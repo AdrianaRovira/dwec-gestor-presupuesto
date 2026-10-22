@@ -5,7 +5,7 @@ let presupuesto = 0;
 
 function actualizarPresupuesto(presupuestoIntroducido) {
     // TODO
-    
+
     if(presupuestoIntroducido < 0 || typeof presupuestoIntroducido != "number"){
     
         console.log("Error, el número es menor de 0");
@@ -21,7 +21,11 @@ function actualizarPresupuesto(presupuestoIntroducido) {
 }
 
 function mostrarPresupuesto() {
-    // TODO
+// TODO
+let texto;
+   texto = "Tu presupuesto actual es de " + presupuesto + " €";
+   return texto;
+    
 }
 
 function CrearGasto() {
