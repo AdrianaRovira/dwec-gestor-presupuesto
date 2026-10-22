@@ -3,10 +3,10 @@
 // TODO: Variable global
 let presupuesto = 0;
 
-function actualizarPresupuesto(presupuestoIntroducido) {
+function actualizarPresupuesto(valor) {
     // TODO
 
-    if(presupuestoIntroducido < 0 || typeof presupuestoIntroducido != "number"){
+    if(valor < 0 || typeof valor != "number"){
     
         console.log("Error, el número es menor de 0");
         return -1;
@@ -14,7 +14,7 @@ function actualizarPresupuesto(presupuestoIntroducido) {
     }else{
 
         console.log("Es un número correcto");
-        presupuesto = presupuestoIntroducido;
+        presupuesto = valor;
         return presupuesto;
     }
     
@@ -22,15 +22,23 @@ function actualizarPresupuesto(presupuestoIntroducido) {
 
 function mostrarPresupuesto() {
 // TODO
-let texto;
-   texto = "Tu presupuesto actual es de " + presupuesto + " €";
-   return texto;
+    let texto;
+
+        texto = "Tu presupuesto actual es de " + presupuesto + " €";
+
+    return texto;
     
 }
 
 function CrearGasto() {
     // TODO
+
+
 }
+
+
+
+
 
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
 // Las funciones y objetos deben tener los nombres que se indican en el enunciado
