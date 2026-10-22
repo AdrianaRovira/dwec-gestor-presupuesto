@@ -30,11 +30,51 @@ function mostrarPresupuesto() {
     
 }
 
-function CrearGasto() {
+//constructor objeto
+function CrearGasto(descripcionIntro, valorIntro) {
     // TODO
+    this.descripcion = descripcionIntro;
+    this.valor = valorIntro;
+    
+
+    if( typeof valorIntro == "number" && valorIntro >= 0){
+       this.valor = valorIntro;
+
+    }else{
+            this.valor = 0;
+        }
+
+        
+       //funcion mostrar descripcion y gasto
+        this.mostrarGasto = function(){
+
+            let texto = "Gasto correspondiente a " + this.descripcion + " con valor " + this.valor + " €" ;
+
+            return texto;
+            
+        
+        }
+
+        //funcion actualizar descripcion
+        this.actualizarDescripcion = function(nuevaDescripcion){
+            
+            this.descripcion = nuevaDescripcion;
+        }
+
+        //funcion actualizar valor
+        this.actualizarValor = function(nuevoValor){
+
+            if(typeof nuevoValor == "number" && nuevoValor >= 0){
+
+               this.valor = nuevoValor;
+
+            }
+        }
+
+    }
 
 
-}
+
 
 
 
