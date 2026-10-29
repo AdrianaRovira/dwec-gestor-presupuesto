@@ -3,6 +3,8 @@
 // TODO: Variable global
 let presupuesto = 0;
 
+
+//Función Actualizar presupuesto
 function actualizarPresupuesto(valor) {
     // TODO
 
@@ -20,6 +22,7 @@ function actualizarPresupuesto(valor) {
     
 }
 
+//Funcion mostrar presupuesto
 function mostrarPresupuesto() {
 // TODO
     let texto;
@@ -30,7 +33,10 @@ function mostrarPresupuesto() {
     
 }
 
-//constructor objeto
+//CREAR OBJETO 
+
+//constructor objeto.
+//Creo las funciones dentro del constructor del objeto rn vrz de con prototype
 function CrearGasto(descripcionIntro, valorIntro) {
     // TODO
     this.descripcion = descripcionIntro;
