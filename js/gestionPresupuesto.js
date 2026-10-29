@@ -39,11 +39,38 @@ function mostrarPresupuesto() {
 
 //constructor objeto.
 //Creo las funciones dentro del constructor del objeto rn vrz de con prototype
-function CrearGasto(descripcionIntro, valorIntro) {
+function CrearGasto(descripcionIntro, valorIntro, fecha) {
     // TODO
     this.descripcion = descripcionIntro;
     this.valor = valorIntro;
+
+    //FECHA
+
+    let fechaTimestamp = Date.parse(fecha);
+
+    //validar si la fecha es una fecha, si no, devuelve la fecha de hoy
+    //validar si no se ha introducido una fecha, si no se ha introducido, devuelve la de hoy
+    //si la fecha introducida es correcta, de devuelve la fecha introducida.
+    if(Number.isNaN(fechaTimestamp)){
+
+            this.fecha = Date.now();
+
+    }else{
+        this.fecha = fechaTimestamp;
+
+
+    }
     
+    
+
+
+
+
+
+
+
+    //PROPIEDADES
+    let etiquetas = [];
 
     if( typeof valorIntro == "number" && valorIntro >= 0){
        this.valor = valorIntro;
