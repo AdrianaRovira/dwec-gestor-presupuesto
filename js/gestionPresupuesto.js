@@ -6,6 +6,7 @@ let gastos = [];
 let idGasto = 0;
 
 
+
 //Función Actualizar presupuesto
 function actualizarPresupuesto(valor) {
     // TODO
@@ -26,7 +27,7 @@ function actualizarPresupuesto(valor) {
 
 //Funcion mostrar presupuesto
 function mostrarPresupuesto() {
-// TODO
+
     let texto;
 
         texto = "Tu presupuesto actual es de " + presupuesto + " €";
@@ -35,51 +36,113 @@ function mostrarPresupuesto() {
     
 }
 
+
+
+
 //CREAR OBJETO 
 
 //constructor objeto.
-//Creo las funciones dentro del constructor del objeto rn vrz de con prototype
-function CrearGasto(descripcionIntro, valorIntro, fecha) {
-    // TODO
-    this.descripcion = descripcionIntro;
-    this.valor = valorIntro;
+//Creo las funciones dentro del constructor del objeto en vez de con prototype
+function CrearGasto(descripcionIntro, valorIntro, fecha, ...etiquetas) {
+        
 
-    //FECHA
+        this.descripcion = descripcionIntro;
+        this.valor = valorIntro;
+        this.etiquetas = [];
 
-    let fechaTimestamp = Date.parse(fecha);
+ //-----------------------------------DESCRIPCIÓN-------------------------------------------------- 
+     
+
+    //funcion actualizar descripcion
+        this.actualizarDescripcion = function(nuevaDescripcion){
+            
+            this.descripcion = nuevaDescripcion;
+        }
+
+    
+
+//--------------------------------------VALOR-----------------------------------------------    
+    
+    //Validación de propiedad VALOR
+
+        if( typeof valorIntro == "number" && valorIntro >= 0){
+        this.valor = valorIntro;
+
+        }else{
+                this.valor = 0;
+            }
+        
+        //funcion actualizar valor
+        this.actualizarValor = function(nuevoValor){
+
+            if(typeof nuevoValor == "number" && nuevoValor >= 0){
+
+               this.valor = nuevoValor;
+
+            }
+        }
+    
+        
+//-------------------------------------FECHA------------------------------------------------    
+    //Validación de propiedad FECHA
+        let fechaTimestamp = Date.parse(fecha);
 
     //validar si la fecha es una fecha, si no, devuelve la fecha de hoy
     //validar si no se ha introducido una fecha, si no se ha introducido, devuelve la de hoy
     //si la fecha introducida es correcta, de devuelve la fecha introducida.
-    if(Number.isNaN(fechaTimestamp)){
+        if(Number.isNaN(fechaTimestamp)){
 
-            this.fecha = Date.now();
+                this.fecha = Date.now();
 
-    }else{
-        this.fecha = fechaTimestamp;
-
-
-    }
-    
-    
+        }else{
+            this.fecha = fechaTimestamp;
 
 
-
-
-
-
-
-    //PROPIEDADES
-    let etiquetas = [];
-
-    if( typeof valorIntro == "number" && valorIntro >= 0){
-       this.valor = valorIntro;
-
-    }else{
-            this.valor = 0;
         }
 
+    //Método actualizar fecha
         
+        this.actualizarFecha = function(nuevaFecha){
+            let fechaNuevaTimestamp = Date.parse(nuevaFecha);
+
+            if(!Number.isNaN(fechaNuevaTimestamp)){
+
+                this.fecha = fechaNuevaTimestamp;
+            
+            }
+            
+        }
+
+//-------------------------------------FUNCIONES------------------------------------------------    
+
+    
+
+
+
+
+
+
+
+
+
+
+    //función mostrarGastoCompleto
+
+        
+
+        this.mostrarGastoCompleto = function(){
+            let texto = "Gasto correspondiente a: " + this.descripcion + " con valor: " + this.valor + " €. \n";
+            texto += "Fecha: "+ this.fecha + "\n";
+            texto += "Etiquetas:\n ";
+
+            for(let etiqueta of this.etiquetas){
+                texto += "- " + etiqueta + "\n";
+            }
+
+
+            return texto;
+        }
+
        //funcion mostrar descripcion y gasto
         this.mostrarGasto = function(){
 
@@ -90,21 +153,7 @@ function CrearGasto(descripcionIntro, valorIntro, fecha) {
         
         }
 
-        //funcion actualizar descripcion
-        this.actualizarDescripcion = function(nuevaDescripcion){
-            
-            this.descripcion = nuevaDescripcion;
-        }
-
-        //funcion actualizar valor
-        this.actualizarValor = function(nuevoValor){
-
-            if(typeof nuevoValor == "number" && nuevoValor >= 0){
-
-               this.valor = nuevoValor;
-
-            }
-        }
+      
 
     }
 
