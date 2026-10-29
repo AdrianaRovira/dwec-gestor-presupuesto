@@ -81,9 +81,31 @@ function CrearGasto(descripcionIntro, valorIntro) {
 
     }
 
+//-------------------------------TEST INTRO JS II----------------------------
+    //FUNCION LISTAR GASTOS
+    function listarGastos(){
+        
+    }
 
+    //FUNCION AÑADIR GASTO
+    function anyadirGasto(gasto){
 
+    }
 
+    //FUNCION BORRAR GASTO
+    function borrarGasto(id){
+
+    }
+
+    //FUNCION cALCULAR TOTAL GASTO
+    function calcularTotalGastos(){
+
+    }
+
+    //FUNCION cALCULAR BALANCE
+    function calcularBalance(){
+        
+    }
 
 
 
