@@ -114,6 +114,9 @@ function CrearGasto(descripcionIntro, valorIntro, fecha, ...etiquetas) {
         }
 //-------------------------------------ETIQUETAS------------------------------------------------    
 
+       
+
+
         this.anyadirEtiquetas = function (...etiquetas){
 
             //se recorre etiquetas no this.etiquetas, y lo comparamos con this.etiquetas
@@ -126,6 +129,9 @@ function CrearGasto(descripcionIntro, valorIntro, fecha, ...etiquetas) {
             }
         
         }
+
+        //para añadir las primeras etiquetas que entran por parametro
+         this.anyadirEtiquetas(...etiquetas);
 
 //-------------------------------------FUNCIONES------------------------------------------------    
 
@@ -144,11 +150,11 @@ function CrearGasto(descripcionIntro, valorIntro, fecha, ...etiquetas) {
 
         this.mostrarGastoCompleto = function(){
             let texto = "Gasto correspondiente a: " + this.descripcion + " con valor: " + this.valor + " €. \n";
-            texto += "Fecha: "+ this.fecha + "\n";
+            texto += "Fecha: "+ new Date (this.fecha).toLocaleString() + "\n";
             texto += "Etiquetas:\n ";
 
             for(let etiqueta of this.etiquetas){
-                texto += "- " + etiqueta + "\n";
+                texto += " - " + etiqueta + "\n";
             }
 
 
