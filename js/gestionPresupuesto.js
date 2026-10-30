@@ -133,6 +133,21 @@ function CrearGasto(descripcionIntro, valorIntro, fecha, ...etiquetas) {
         //para añadir las primeras etiquetas que entran por parametro
          this.anyadirEtiquetas(...etiquetas);
 
+         
+         //FUNCIÓN Borrar etiquetas
+         this.borrarEtiquetas = (...etiquetas) => {
+
+           for (let eti of etiquetas){
+
+            let posEti = this.etiquetas.indexOf(eti);
+
+            if(posEti !== -1){
+
+                this.etiquetas.splice(posEti, 1);
+            }
+           };
+                
+        }
 //-------------------------------------FUNCIONES------------------------------------------------    
 
     
@@ -149,7 +164,7 @@ function CrearGasto(descripcionIntro, valorIntro, fecha, ...etiquetas) {
     //función mostrarGastoCompleto
 
         this.mostrarGastoCompleto = function(){
-            let texto = "Gasto correspondiente a: " + this.descripcion + " con valor: " + this.valor + " €. \n";
+            let texto = "Gasto correspondiente a " + this.descripcion + " con valor " + this.valor + " €. \n";
             texto += "Fecha: "+ new Date (this.fecha).toLocaleString() + "\n";
             texto += "Etiquetas:\n ";
 
@@ -174,6 +189,7 @@ function CrearGasto(descripcionIntro, valorIntro, fecha, ...etiquetas) {
       
 
     }
+
 
 //-------------------------------TEST INTRO JS II----------------------------
     //FUNCION LISTAR GASTOS
