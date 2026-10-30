@@ -233,6 +233,11 @@ function CrearGasto(descripcionIntro, valorIntro, fecha, ...etiquetas) {
     //FUNCION cALCULAR BALANCE
     function calcularBalance(){
 
+        let balance = 0;
+
+           balance = presupuesto - calcularTotalGastos();
+
+        return balance;
     }
 
 
