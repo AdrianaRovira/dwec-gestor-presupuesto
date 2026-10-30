@@ -150,26 +150,20 @@ function CrearGasto(descripcionIntro, valorIntro, fecha, ...etiquetas) {
         }
 //-------------------------------------FUNCIONES------------------------------------------------    
 
-    
 
 
-
-
-
-
-
-
+//-------------------------------TEST INTRO JS II----------------------------
 
 
     //función mostrarGastoCompleto
 
         this.mostrarGastoCompleto = function(){
-            let texto = "Gasto correspondiente a " + this.descripcion + " con valor " + this.valor + " €. \n";
-            texto += "Fecha: "+ new Date (this.fecha).toLocaleString() + "\n";
-            texto += "Etiquetas:\n ";
+            let texto = "Gasto correspondiente a " + this.descripcion + " con valor " + this.valor + " €.\n";
+            texto += "Fecha: " + new Date(this.fecha).toLocaleString() + "\n";
+            texto += "Etiquetas:\n";
 
             for(let etiqueta of this.etiquetas){
-                texto += " - " + etiqueta + "\n";
+                texto += "- " + etiqueta + "\n";
             }
 
 
@@ -191,7 +185,7 @@ function CrearGasto(descripcionIntro, valorIntro, fecha, ...etiquetas) {
     }
 
 
-//-------------------------------TEST INTRO JS II----------------------------
+
     //FUNCION LISTAR GASTOS
     function listarGastos(){
         return gastos;
@@ -217,7 +211,7 @@ function CrearGasto(descripcionIntro, valorIntro, fecha, ...etiquetas) {
               let posicion = gastos.indexOf(gasto);
 
         gastos.splice(posicion, 1);
-        
+
         break;
         }
        }
@@ -226,6 +220,13 @@ function CrearGasto(descripcionIntro, valorIntro, fecha, ...etiquetas) {
 
     //FUNCION cALCULAR TOTAL GASTO
     function calcularTotalGastos(){
+
+        let suma = 0;
+
+        for (let gasto of gastos){
+            suma += gasto.valor;
+        }
+        return suma;
 
     }
 
