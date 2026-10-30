@@ -133,7 +133,7 @@ function CrearGasto(descripcionIntro, valorIntro, fecha, ...etiquetas) {
         //para añadir las primeras etiquetas que entran por parametro
          this.anyadirEtiquetas(...etiquetas);
 
-         
+
          //FUNCIÓN Borrar etiquetas
          this.borrarEtiquetas = (...etiquetas) => {
 
@@ -200,10 +200,15 @@ function CrearGasto(descripcionIntro, valorIntro, fecha, ...etiquetas) {
     //FUNCION AÑADIR GASTO
     function anyadirGasto(gasto){
 
+        gasto.id = idGasto;
+        gastos.push(gasto);
+        idGasto++;
+        
+        
     }
 
     //FUNCION BORRAR GASTO
-    function borrarGasto(id){
+    function borrarGasto(idGasto){
 
     }
 
