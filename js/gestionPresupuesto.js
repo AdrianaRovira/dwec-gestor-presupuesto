@@ -210,6 +210,18 @@ function CrearGasto(descripcionIntro, valorIntro, fecha, ...etiquetas) {
     //FUNCION BORRAR GASTO
     function borrarGasto(idGasto){
 
+       for(let gasto of gastos ){
+
+        if(gasto.id === idGasto){
+
+              let posicion = gastos.indexOf(gasto);
+
+        gastos.splice(posicion, 1);
+        
+        break;
+        }
+       }
+
     }
 
     //FUNCION cALCULAR TOTAL GASTO
