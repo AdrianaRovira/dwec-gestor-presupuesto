@@ -240,6 +240,15 @@ function CrearGasto(descripcionIntro, valorIntro, fecha, ...etiquetas) {
         return balance;
     }
 
+    //FUNCION FILTRAR GASTOS
+    function filtrarGastos(){
+
+    }
+
+    //FUNCION AGRUPAR GASTOS
+    function agruparGastos(){
+        
+    }
 
 
 
@@ -254,7 +263,9 @@ export   {
     anyadirGasto,
     borrarGasto,
     calcularTotalGastos,
-    calcularBalance
+    calcularBalance,
+    filtrarGastos,
+    agruparGastos,
 
 
 }
