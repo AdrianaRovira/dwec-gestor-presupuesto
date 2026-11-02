@@ -148,6 +148,41 @@ function CrearGasto(descripcionIntro, valorIntro, fecha, ...etiquetas) {
            };
                 
         }
+
+        //-----------------------------------------------
+
+        this.obtenerPeriodoAgrupacion = function(periodo){
+
+            let fechaObjeto = new Date(this.fecha);
+
+            let anyo = fechaObjeto.getFullYear();
+            let mes = fechaObjeto.getMonth() +1;
+            let dia = fechaObjeto.getDate();
+
+            let texto = "";
+
+            if(mes < 10){
+                mes = "0" + mes;
+            }
+
+            if (dia < 10){
+                dia = "0" + dia;
+            }
+            if(periodo === "anyo"){
+
+                texto = anyo;
+
+            }else if(periodo === "mes"){
+
+                texto = anyo + "-" + mes;
+
+            }else if (periodo === "dia"){
+
+                texto = anyo + "-" + mes + "-" + dia;
+            }
+
+            return texto;
+        }
 //-------------------------------------FUNCIONES------------------------------------------------    
 
 
@@ -247,7 +282,7 @@ function CrearGasto(descripcionIntro, valorIntro, fecha, ...etiquetas) {
 
     //FUNCION AGRUPAR GASTOS
     function agruparGastos(){
-        
+
     }
 
 
