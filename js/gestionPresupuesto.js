@@ -276,12 +276,49 @@ function CrearGasto(descripcionIntro, valorIntro, fecha, ...etiquetas) {
     }
 
     //FUNCION FILTRAR GASTOS
-    function filtrarGastos(){
+    function filtrarGastos(filtro){
 
+        let resultadoFiltracion = gastos.filter(function(gasto){
+            
+            let minMax = true;
+
+            if(filtro.valorMinimo !== undefined){
+
+                if(filtro.valorMinimo < gasto.valor){ // ssi no lo cumple, no pasa, 
+
+                    minMax = false;
+
+                }
+
+            if(filtro.valorMaximo !== undefined){
+
+                if(filtro.valorMaximo < gasto.valor ){
+
+                    minMax = false;
+                }
+            }
+
+            if(filtro.fechaDesde !== undefined){
+
+               if (gasto.fecha < Date.parse(filtro.fechaDesde)) {
+
+                     minMax = false;
+                     
+                }
+            }
+
+            return minMax;
+
+            }
+
+        });
+
+        return resultadoFiltracion;
     }
 
     //FUNCION AGRUPAR GASTOS
     function agruparGastos(){
+
 
     }
 
