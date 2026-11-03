@@ -212,11 +212,7 @@ function CrearGasto(descripcionIntro, valorIntro, fecha, ...etiquetas) {
 
             return texto;
             
-        
         }
-
-      
-
     }
 
 
@@ -280,46 +276,50 @@ function CrearGasto(descripcionIntro, valorIntro, fecha, ...etiquetas) {
 
         let resultadoFiltracion = gastos.filter(function(gasto){
             
+            
             let minMax = true;
-
+           
+            
             //-----minimo y maximo valor---------
             if(filtro.valorMinimo !== undefined){
 
-                if(filtro.valorMinimo < gasto.valor){ // ssi no lo cumple, no pasa, 
+                if(gasto.valor < filtro.valorMinimo  ){ // ssi no lo cumple, no pasa, 
 
                     minMax = false;
 
                 }
+            }
 
             if(filtro.valorMaximo !== undefined){
 
-                if(filtro.valorMaximo < gasto.valor ){
+                if(gasto.valor  > filtro.valorMaximo   ){
 
                     minMax = false;
                 }
             }
+            
 
         //---------fecha desde y hasta--------------
             if(filtro.fechaDesde !== undefined){
 
-               if (gasto.fecha < Date.parse(filtro.fechaDesde)) {
+               if (gasto.fecha <  Date.parse(filtro.fechaDesde)) {
 
                      minMax = false;
 
                 }
             }
 
-            return minMax;
-
-            }
+            
 
             if(filtro.fechaHasta !==undefined){
+                //console.log("Fecha del gasto:", gasto.fecha);
+                //console.log("Fecha del filtro:", Date.parse(filtro.fechaDesde));
+                //console.log("Comparación:", gasto.fecha < Date.parse(filtro.fechaDesde));
 
-                if(gasto.fecha < Date.parse(filtro.fechaHasta)){
+                if(gasto.fecha > Date.parse(filtro.fechaHasta)){
 
                     minMax = false;
                 }
-
             }
 
         //---------descripción--------------
@@ -337,32 +337,35 @@ function CrearGasto(descripcionIntro, valorIntro, fecha, ...etiquetas) {
             //creamos una variable para valorar que etiquetas coinciden con del array que nos pasan del objeto que nos pasan en esta función
             //hacemos un for para recorrer el array de etiquetasTiene (que es el array de las etiquetas del objeto que nos pasan por parametro)
             //el if nos dice que en el nuevo array en minisculas que hemos creado con map incluye alguno de las etiquetas del array etiquetasTiene de [i] y en minuscula
-           
             if(filtro.etiquetasTiene !== undefined){
 
                 let etiquetasGasto = gasto.etiquetas.map(function(etiquetas) {
                     return etiquetas.toLowerCase();
-                })
-
+                });
+              
                 let etiquetaCoincide = false;
 
-                
-                for(let i = 0; i < etiquetasTiene.leght; i++){
+                for(let i = 0; i < filtro.etiquetasTiene.length; i++){
 
                     if(etiquetasGasto.includes(filtro.etiquetasTiene[i].toLowerCase())){
                         etiquetaCoincide = true;
+                        //console.log("Etiqueta que estoy buscando:", filtro.etiquetasTiene[i]);
                     }
                 }
 
                 //Si este gasto no tiene ninguna de las etiquetas que estoy buscando, no quiero que aparezca en el resultado
                 if(!etiquetaCoincide){
+
                     minMax = false;
-                }
+                }  
             }
 
+            
+            return minMax;
+            
         });
-
-        return resultadoFiltracion;
+       
+       return resultadoFiltracion;
     }
 
     //FUNCION AGRUPAR GASTOS
