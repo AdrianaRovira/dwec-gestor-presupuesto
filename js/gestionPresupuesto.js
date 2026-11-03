@@ -282,6 +282,7 @@ function CrearGasto(descripcionIntro, valorIntro, fecha, ...etiquetas) {
             
             let minMax = true;
 
+            //-----minimo y maximo valor---------
             if(filtro.valorMinimo !== undefined){
 
                 if(filtro.valorMinimo < gasto.valor){ // ssi no lo cumple, no pasa, 
@@ -298,17 +299,65 @@ function CrearGasto(descripcionIntro, valorIntro, fecha, ...etiquetas) {
                 }
             }
 
+        //---------fecha desde y hasta--------------
             if(filtro.fechaDesde !== undefined){
 
                if (gasto.fecha < Date.parse(filtro.fechaDesde)) {
 
                      minMax = false;
-                     
+
                 }
             }
 
             return minMax;
 
+            }
+
+            if(filtro.fechaHasta !==undefined){
+
+                if(gasto.fecha < Date.parse(filtro.fechaHasta)){
+
+                    minMax = false;
+                }
+
+            }
+
+        //---------descripción--------------
+
+            if(filtro.descripcionContiene !== undefined){
+
+                if(!gasto.descripcion.toLowerCase().includes(filtro.descripcionContiene.toLowerCase())){
+
+                    minMax = false;
+                }
+            }
+
+        //---------etiquetas--------------
+            //primero con map creamos un nuevo array del array original de etiquetas pasandole el array de etiquetas del objeto gasto del array "...etiquetas" y lo pasamos a minusculas
+            //creamos una variable para valorar que etiquetas coinciden con del array que nos pasan del objeto que nos pasan en esta función
+            //hacemos un for para recorrer el array de etiquetasTiene (que es el array de las etiquetas del objeto que nos pasan por parametro)
+            //el if nos dice que en el nuevo array en minisculas que hemos creado con map incluye alguno de las etiquetas del array etiquetasTiene de [i] y en minuscula
+           
+            if(filtro.etiquetasTiene !== undefined){
+
+                let etiquetasGasto = gasto.etiquetas.map(function(etiquetas) {
+                    return etiquetas.toLowerCase();
+                })
+
+                let etiquetaCoincide = false;
+
+                
+                for(let i = 0; i < etiquetasTiene.leght; i++){
+
+                    if(etiquetasGasto.includes(filtro.etiquetasTiene[i].toLowerCase())){
+                        etiquetaCoincide = true;
+                    }
+                }
+
+                //Si este gasto no tiene ninguna de las etiquetas que estoy buscando, no quiero que aparezca en el resultado
+                if(!etiquetaCoincide){
+                    minMax = false;
+                }
             }
 
         });
