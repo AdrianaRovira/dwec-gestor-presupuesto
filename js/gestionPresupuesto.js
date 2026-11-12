@@ -277,7 +277,7 @@ function CrearGasto(descripcionIntro, valorIntro, fecha, ...etiquetas) {
         let resultadoFiltracion = gastos.filter(function(gasto){
             
             
-            let minMax = true;
+            let seFiltra = true;
            
             
             //-----minimo y maximo valor---------
@@ -285,7 +285,7 @@ function CrearGasto(descripcionIntro, valorIntro, fecha, ...etiquetas) {
 
                 if(gasto.valor < filtro.valorMinimo  ){ // ssi no lo cumple, no pasa, 
 
-                    minMax = false;
+                 seFiltra = false;
 
                 }
             }
@@ -294,7 +294,7 @@ function CrearGasto(descripcionIntro, valorIntro, fecha, ...etiquetas) {
 
                 if(gasto.valor  > filtro.valorMaximo   ){
 
-                    minMax = false;
+                 seFiltra = false;
                 }
             }
             
@@ -304,7 +304,7 @@ function CrearGasto(descripcionIntro, valorIntro, fecha, ...etiquetas) {
 
                if (gasto.fecha <  Date.parse(filtro.fechaDesde)) {
 
-                     minMax = false;
+                     seFiltra = false;
 
                 }
             }
@@ -318,7 +318,7 @@ function CrearGasto(descripcionIntro, valorIntro, fecha, ...etiquetas) {
 
                 if(gasto.fecha > Date.parse(filtro.fechaHasta)){
 
-                    minMax = false;
+                 seFiltra = false;
                 }
             }
 
@@ -328,7 +328,7 @@ function CrearGasto(descripcionIntro, valorIntro, fecha, ...etiquetas) {
 
                 if(!gasto.descripcion.toLowerCase().includes(filtro.descripcionContiene.toLowerCase())){
 
-                    minMax = false;
+                 seFiltra = false;
                 }
             }
 
@@ -356,12 +356,12 @@ function CrearGasto(descripcionIntro, valorIntro, fecha, ...etiquetas) {
                 //Si este gasto no tiene ninguna de las etiquetas que estoy buscando, no quiero que aparezca en el resultado
                 if(!etiquetaCoincide){
 
-                    minMax = false;
+                 seFiltra = false;
                 }  
             }
 
             
-            return minMax;
+            return seFiltra;
             
         });
        
@@ -369,8 +369,44 @@ function CrearGasto(descripcionIntro, valorIntro, fecha, ...etiquetas) {
     }
 
     //FUNCION AGRUPAR GASTOS
-    function agruparGastos(){
+    function agruparGastos(periodo ="mes", etiquetas = [], fechaDesde, fechaHasta ){
 
+          if(fechaHasta === undefined){
+               fechaHasta = new Date().toISOString();
+          }
+
+        //objeto filtro
+      let filtro = {
+        
+        etiquetasTiene: etiquetas ,
+        fechaDesde: fechaDesde,
+        fechaHasta: fechaHasta
+      }
+
+      //llamo a la funcion filtrarGastos y le paso el objeto filtro que acabo de crear arriba y
+      //guardamos el array que se crea en gastosFiltrados
+      let gastosFiltrados = filtrarGastos(filtro);
+      
+    
+      let resultados = gastosFiltrados.reduce(function(acc, gasto){
+
+        let clave = gasto.obtenerPeriodoAgrupacion(periodo);
+
+        if(acc[clave] === undefined){
+            //solo para la primera vuelta
+            acc[clave] = 0;
+            acc[clave] = gasto.valor;
+
+        }else{
+             acc[clave] += gasto.valor;
+        }
+
+        return acc;
+
+       
+
+      }, {});
+      return resultados;
 
     }
 
