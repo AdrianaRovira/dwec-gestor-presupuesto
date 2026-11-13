@@ -378,20 +378,23 @@ function CrearGasto(descripcionIntro, valorIntro, fecha, ...etiquetas) {
         //objeto filtro
       let filtro = {
         
-        etiquetasTiene: etiquetas ,
+        etiquetasTiene: etiquetas.length > 0 ? etiquetas : undefined,
         fechaDesde: fechaDesde,
         fechaHasta: fechaHasta
       }
 
+      console.log("FILTROOO:", filtro);
       //llamo a la funcion filtrarGastos y le paso el objeto filtro que acabo de crear arriba y
       //guardamos el array que se crea en gastosFiltrados
       let gastosFiltrados = filtrarGastos(filtro);
-      
+
+      console.log("Gastos filtrado0000s:", gastosFiltrados);
+   
     
       let resultados = gastosFiltrados.reduce(function(acc, gasto){
 
         let clave = gasto.obtenerPeriodoAgrupacion(periodo);
-
+           console.log("ACC:", acc);
         if(acc[clave] === undefined){
             //solo para la primera vuelta
             acc[clave] = 0;
@@ -399,11 +402,14 @@ function CrearGasto(descripcionIntro, valorIntro, fecha, ...etiquetas) {
 
         }else{
              acc[clave] += gasto.valor;
+              
         }
+
+        
 
         return acc;
 
-       
+      
 
       }, {});
       return resultados;
