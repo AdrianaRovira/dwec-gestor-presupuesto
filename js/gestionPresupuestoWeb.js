@@ -29,9 +29,31 @@ function actualizarPresupuestoWeb(){
 
     document.getElementById("actualizarpresupuesto").addEventListener("click",actualizarPresupuestoWeb );
 
+// El orden es:
+// 1. Recoger los datos.
+// 2. Convertir el valor y las etiquetas.
+// 3. Crear el gasto con gesPres.crearGasto().
+// 4. Añadirlo con gesPres.anyadirGasto().
+// 5. Llamar a repintar().
 
 function nuevoGastoWeb(){
-    
+
+    let descri = prompt("di la descripcion: ");
+    let valor = prompt("di precio: ");
+    let fecha = prompt("di fecha (yyyy-mm-dd): ");
+    let eti = prompt("di tus etiquetas, con comas ',': ");
+
+    let etiquetas = eti.split(",");
+
+    let valorNumero = Number(valor);
+
+   let gasto = gesPres.crearGasto(descri,valorNumero,fecha,etiquetas);
+
+   gesPres.anyadirGasto(gasto);
+
+   repintar();
+
+
 }
 
 
