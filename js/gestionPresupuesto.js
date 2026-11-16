@@ -183,6 +183,11 @@ function CrearGasto(descripcionIntro, valorIntro, fecha, ...etiquetas) {
 
             return texto;
         }
+//-------------------------------------FUNCIONES------------------------------------------------    
+
+
+
+//-------------------------------TEST INTRO JS II----------------------------
 
 
     //función mostrarGastoCompleto
@@ -210,7 +215,6 @@ function CrearGasto(descripcionIntro, valorIntro, fecha, ...etiquetas) {
         }
     }
 
-//-------------------------------------FUNCIONES------------------------------------------------    
 
     //FUNCION LISTAR GASTOS
     function listarGastos(){

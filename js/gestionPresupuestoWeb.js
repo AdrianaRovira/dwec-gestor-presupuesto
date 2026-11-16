@@ -1,11 +1,47 @@
 
-
+import * as gesPres from "./gestionPresupuesto.js";
 
 function mostrarDatoEnId(idElemento, valor){
 
     document.getElementById(idElemento).textContent = valor;
 
 }
+
+function repintar(){
+    mostrarDatoEnId("presupuesto", gesPres.mostrarPresupuesto());
+    mostrarDatoEnId("gastos-totales", gesPres.calcularTotalGastos());
+    mostrarDatoEnId("balance-total", gesPres.calcularBalance());
+    
+    document.getElementById("listado-gastos-completo").innerHTML = "";
+
+}
+
+function actualizarPresupuestoWeb(){
+
+    let presu = prompt("Introduce el nuevo presupuesto: ");
+    if(!Number.isNaN(Number(presu))){
+
+        gesPres.actualizarPresupuesto(Number(presu)); 
+        repintar();
+    }
+
+}
+
+    document.getElementById("actualizarpresupuesto").addEventListener("click",actualizarPresupuestoWeb );
+
+
+function nuevoGastoWeb(){
+    
+}
+
+
+
+
+
+
+
+
+
 
 function mostrarGastoWeb(idElemento, gasto){
    
@@ -19,7 +55,7 @@ function mostrarGastoWeb(idElemento, gasto){
 
     let divFecha = document.createElement("div");
     divFecha.className = "gasto-fecha";
-    divFecha.textContent = new Date(gasto.fecha).toISOString();
+    divFecha.textContent = new Date(gasto.fecha).toLocaleDateString();
     divGasto.appendChild(divFecha);
 
     let divValorG = document.createElement("div");
@@ -101,6 +137,7 @@ function mostrarGastoWeb(idElemento, gasto){
 export{
     mostrarDatoEnId,
     mostrarGastoWeb,
-    mostrarGastosAgrupadosWeb
+    mostrarGastosAgrupadosWeb,
+    actualizarPresupuestoWeb,
 
 };
