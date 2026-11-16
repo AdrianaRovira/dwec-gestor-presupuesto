@@ -14,6 +14,10 @@ function repintar(){
     
     document.getElementById("listado-gastos-completo").innerHTML = "";
 
+     for(let gasto of gesPres.listarGastos()){
+            mostrarGastoWeb("listado-gastos-completo", gasto);
+        }
+
 }
 
 function actualizarPresupuestoWeb(){
@@ -23,10 +27,9 @@ function actualizarPresupuestoWeb(){
 
         gesPres.actualizarPresupuesto(Number(presu)); 
         repintar();
+
     }
-
 }
-
     document.getElementById("actualizarpresupuesto").addEventListener("click",actualizarPresupuestoWeb );
 
 // El orden es:
@@ -47,7 +50,7 @@ function nuevoGastoWeb(){
 
     let valorNumero = Number(valor);
 
-   let gasto = gesPres.crearGasto(descri,valorNumero,fecha,etiquetas);
+   let gasto = new gesPres.CrearGasto(descri,valorNumero,fecha,...etiquetas);
 
    gesPres.anyadirGasto(gasto);
 
@@ -56,11 +59,7 @@ function nuevoGastoWeb(){
 
 }
 
-
-
-
-
-
+document.getElementById("anyadirgasto").addEventListener("click", nuevoGastoWeb);
 
 
 
@@ -161,5 +160,6 @@ export{
     mostrarGastoWeb,
     mostrarGastosAgrupadosWeb,
     actualizarPresupuestoWeb,
+    nuevoGastoWeb
 
 };
