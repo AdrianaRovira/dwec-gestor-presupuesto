@@ -91,8 +91,10 @@ function EditarHandle(){
     }
 };
 
+//funcion constructora, crea objetos "borrarHandle" -> let objetomanejador = new borrarHandle()
 function borrarHandle(){
 
+    //metodo que va dentro del objeto manejador
     this.handleEvent = function(){
         gesPres.borrarGasto(this.gasto.id);
 
@@ -238,7 +240,79 @@ function mostrarGastoWeb(idElemento, gasto){
      
     }
 
+
+function nuevoGastoWebFormulario(){
+
+// 1. Clonar la plantilla
+  let plantillaFormulario = document.getElementById("formulario-template").content.cloneNode(true);
+  var formulario = plantillaFormulario.querySelector("form");
     
+  //desactiva el botón (no puedes pulsarlo).
+  document.getElementById("anyadirgasto-formulario").disabled = true;
+
+  // 3. Función que procesa el envío
+    function enviarFormulario (event){
+
+        event.preventDefault();
+
+        let descripcionForm = event.currentTarget.elements.descripcion.value;
+        let valorForm = event.currentTarget.elements.valor.value;
+        let fechaForm = event.currentTarget.elements.fecha.value;
+        let etiquetasForm = event.currentTarget.elements.etiquetas.value;
+
+        let etiquetasArray = etiquetasForm.split(",");
+        let valorNum = Number(valorForm);
+
+        //crear nuevo gasto
+        let gasto = new gesPres.CrearGasto(descripcionForm,valorNum, fechaForm, ...etiquetasArray);
+
+        //añadir gasto a la lista de gastos
+        gesPres.anyadirGasto(gasto);
+        
+        //actualizar navegador
+        repintar();
+
+        //activa el botón (puedes volver a pulsarlo).
+        document.getElementById("anyadirgasto-formulario").disabled = false;
+
+    }
+
+       
+
+    // 4. Asociar el evento submit
+    formulario.addEventListener("submit", enviarFormulario);
+
+    //creamos el objeto manejador, pero todavia no sabe que formulario tiene que eliminar (remove())
+    let manejadorCancelar = new CancelarFormHandle();
+
+    //buscar el botón Cancelar dentro del formulario y guardar una referencia a él.
+    let botonCancelar = formulario.querySelector("button.cancelar");
+
+    //Aquí le estamos dando esa información.
+    //, estamos creando una propiedad llamada formulario dentro del objeto manejadorCancelar y 
+    // guardando en ella el formulario que hemos creado anteriormente
+    manejadorCancelar.formulario = formulario;
+
+    //añadir el manejador y sus funciones al evento click de boton cancelar
+    botonCancelar.addEventListener("click", manejadorCancelar);
+    
+document.getElementById("controlesprincipales").appendChild(plantillaFormulario);
+}
+ function CancelarFormHandle (){
+
+            this.handleEvent = function(event){
+                
+                this.formulario.remove();
+
+                document.getElementById("anyadirgasto-formulario").disabled = false;
+            }
+        }
+
+//asocio al boton de anyadirgasto(formulario) la funcion de arriba
+document.getElementById("anyadirgasto-formulario").addEventListener("click", nuevoGastoWebFormulario);
+
+    
+
 
 
 export{
@@ -248,5 +322,6 @@ export{
     actualizarPresupuestoWeb,
     nuevoGastoWeb,
     EditarHandle,
+    nuevoGastoWebFormulario
 
 };
