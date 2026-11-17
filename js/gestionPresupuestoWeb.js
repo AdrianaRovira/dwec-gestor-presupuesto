@@ -140,10 +140,19 @@ function mostrarGastoWeb(idElemento, gasto){
      for (let eti of gasto.etiquetas){
 
         let spanEti = document.createElement("span");
-     spanEti.className = "gasto-etiquetas-etiqueta";
-     spanEti.textContent = eti;
-     divGastoEti.appendChild(spanEti);
 
+        let manejadorEti = new BorrarEtiquetasHandle();
+        manejadorEti.gasto = gasto;
+        manejadorEti.etiqueta = eti;
+          
+
+        spanEti.className = "gasto-etiquetas-etiqueta";
+        spanEti.textContent = eti;
+        divGastoEti.appendChild(spanEti);
+
+        spanEti.addEventListener("click", manejadorEti);
+        
+        
      }
 
      let divBotones = document.createElement("div");
@@ -158,7 +167,8 @@ function mostrarGastoWeb(idElemento, gasto){
             botonEdit.type = "button";
             botonEdit.textContent = "Editar";
             divBotones.appendChild(botonEdit);
-   botonEdit.addEventListener("click", manejadorEdit);
+
+     botonEdit.addEventListener("click", manejadorEdit);
 
 
         let manejadorBorrar = new borrarHandle();
