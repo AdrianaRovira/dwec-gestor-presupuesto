@@ -30,7 +30,9 @@ function actualizarPresupuestoWeb(){
 
     }
 }
+//botón actualizar presupuesto
     document.getElementById("actualizarpresupuesto").addEventListener("click",actualizarPresupuestoWeb );
+
 
 // El orden es:
 // 1. Recoger los datos.
@@ -56,13 +58,48 @@ function nuevoGastoWeb(){
 
    repintar();
 
-
 }
 
+
+
+//botón añadir gasto
 document.getElementById("anyadirgasto").addEventListener("click", nuevoGastoWeb);
 
 
+//MANEJADOR DE OBJETOS
 
+//funcion constructora:
+function EditarHandle(){
+
+    this.handleEvent = function(){
+    let descri = prompt("descripcion: ", this.gasto.descripcion);
+    let valor = prompt("precio: ", this.gasto.valor);
+    let fecha = prompt("fecha nueva yyyy-mm-dd: ", new Date(this.gasto.fecha).toISOString().slice(0, 10));
+    let eti = prompt("etiquetas: ", this.gasto.etiquetas).join(",");
+
+    let numvalor = Number(valor);
+    let etiquetas = eti.split(",");
+
+    this.gasto.actualizarValor(numvalor);
+    this.gasto.actualizarDescripcion(descri);
+    this.gasto.actualizarFecha(fecha);
+    this.gasto.anyadirEtiquetas(...etiquetas);
+
+    repintar();
+
+
+    }
+};
+
+function borrarHandle(){
+
+    this.handleEvent = function(){
+        gesPres.borrarGasto(this.gasto.id);
+
+        repintar();
+    }
+
+}
 
 function mostrarGastoWeb(idElemento, gasto){
    
