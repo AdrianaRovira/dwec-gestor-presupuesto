@@ -19,6 +19,9 @@
           <button type="button" id="anyadirgasto">
             Añadir gasto
           </button>
+          <button type="button" id="anaydirgasto-formulario">
+            Añadir gasto (formulario)
+          </button>
       </div>
       
       <h2>Totales</h2>
@@ -71,5 +74,27 @@
         -->
              
              <script type="module" src="./js/generarDatosEstaticos.js"></script>
+
+             <template id="formulario-template">
+                <form >
+                    <div class="form-control">
+                        <label for="descripcion">Descripción</label>
+                        <input type="text"  name="descripcion" id="descripcion">
+                    </div>
+                    <div class="form-control">
+                        <label for="valor">Valor</label>
+                        <input type="number" name="valor" step="0.01" id="valor">
+                    </div>
+                    <div class="form-control">
+                       <label for="fecha">Fecha</label>
+                       <input type="date" name="fecha" id="fecha">
+                    </div>
+                    <div class="form-control">
+                       <label for="etiquetas">Etiquetas</label>
+                       <input type="text" name="etiquetas" id="etiquetas">
+                    </div>
+
+                </form>
+             </template>
   </body>
 </html>
