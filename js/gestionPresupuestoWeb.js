@@ -99,7 +99,19 @@ function borrarHandle(){
         repintar();
     }
 
+};
+
+function BorrarEtiquetasHandle(){
+
+    this.handleEvent = function(){
+        this.gasto.borrarEtiquetas(this.etiqueta)
+
+        repintar();
+    };
 }
+
+
+
 
 function mostrarGastoWeb(idElemento, gasto){
    
@@ -133,6 +145,30 @@ function mostrarGastoWeb(idElemento, gasto){
      divGastoEti.appendChild(spanEti);
 
      }
+
+     let divBotones = document.createElement("div");
+        divGasto.appendChild(divBotones);
+     
+        let manejadorEdit = new EditarHandle();
+        manejadorEdit.gasto = gasto;
+        botonEdit.addEventListener("click", manejadorEdit);
+            
+            let botonEdit = document.createElement("button");
+            botonEdit.className = "gasto-editar";
+            botonEdit.type = "button";
+            botonEdit.textContent = "Editar";
+            divBotones.appendChild(botonEdit);
+
+        let manejadorBorrar = new EditarHandle();
+        manejadorBorrar.gasto = gasto;
+        botonBorrar.addEventListener("click", manejadorBorrar);
+
+            let botonBorrar = document.createElement("button");
+            botonBorrar.className = "gasto-borrar";
+            botonBorrar.type ="button";
+            botonBorrar.textContent = "Borrar";
+            divBotones.appendChild(botonBorrar);
+
 
      document.getElementById(idElemento).appendChild(divGasto)
      
