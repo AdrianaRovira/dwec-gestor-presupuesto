@@ -75,7 +75,7 @@ function EditarHandle(){
     let descri = prompt("descripcion: ", this.gasto.descripcion);
     let valor = prompt("precio: ", this.gasto.valor);
     let fecha = prompt("fecha nueva yyyy-mm-dd: ", new Date(this.gasto.fecha).toISOString().slice(0, 10));
-    let eti = prompt("etiquetas: ", this.gasto.etiquetas).join(",");
+    let eti = prompt("etiquetas: ", this.gasto.etiquetas.join(","));
 
     let numvalor = Number(valor);
     let etiquetas = eti.split(",");
@@ -151,17 +151,19 @@ function mostrarGastoWeb(idElemento, gasto){
      
         let manejadorEdit = new EditarHandle();
         manejadorEdit.gasto = gasto;
-        botonEdit.addEventListener("click", manejadorEdit);
+     
             
             let botonEdit = document.createElement("button");
             botonEdit.className = "gasto-editar";
             botonEdit.type = "button";
             botonEdit.textContent = "Editar";
             divBotones.appendChild(botonEdit);
+   botonEdit.addEventListener("click", manejadorEdit);
 
-        let manejadorBorrar = new EditarHandle();
+
+        let manejadorBorrar = new borrarHandle();
         manejadorBorrar.gasto = gasto;
-        botonBorrar.addEventListener("click", manejadorBorrar);
+ 
 
             let botonBorrar = document.createElement("button");
             botonBorrar.className = "gasto-borrar";
@@ -169,6 +171,7 @@ function mostrarGastoWeb(idElemento, gasto){
             botonBorrar.textContent = "Borrar";
             divBotones.appendChild(botonBorrar);
 
+       botonBorrar.addEventListener("click", manejadorBorrar);
 
      document.getElementById(idElemento).appendChild(divGasto)
      
@@ -233,6 +236,7 @@ export{
     mostrarGastoWeb,
     mostrarGastosAgrupadosWeb,
     actualizarPresupuestoWeb,
-    nuevoGastoWeb
+    nuevoGastoWeb,
+    EditarHandle,
 
 };
