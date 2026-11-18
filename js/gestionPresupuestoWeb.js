@@ -1,5 +1,5 @@
 
-import { createElement } from "react";
+//import { createElement } from "react";
 import * as gesPres from "./gestionPresupuesto.js";
 
 function mostrarDatoEnId(idElemento, valor){
@@ -186,24 +186,108 @@ function mostrarGastoWeb(idElemento, gasto){
 
        botonBorrar.addEventListener("click", manejadorBorrar);
 
-       let manejadorEditarForm = new EditarFormHandle();
+       //BOTON EDITAR DESDE FORMULARIO
+       let manejadorEditarForm = new AbrirFormularioEdicionHandle();
        manejadorEditarForm.gasto = gasto;
+       manejadorEditarForm.divGasto = divGasto; 
+  
 
             let botonEditForm = document.createElement("button");
             botonEditForm.className = "gasto-editar-formulario";
             botonEditForm.type = "button";
             botonEditForm.textContent = "Editar (formulario)";
             divBotones.appendChild(botonEditForm);
+
+          manejadorEditarForm.botonEditar = botonEditForm;
         
         botonEditForm.addEventListener("click", manejadorEditarForm);
+
+       
+
 
      document.getElementById(idElemento).appendChild(divGasto)
      
     }
 
+    //Pulsas el botón «Editar (formulario)».
+    //Esta función responde al clic en el botón «Editar (formulario)».
+    function AbrirFormularioEdicionHandle(){
 
+        this.handleEvent = function(){
+
+        // Deshabilitar el botón «Editar (formulario)»
+        this.botonEditar.disabled = true;
+
+            // 1. Clonar la plantilla
+            let plantillaFormulario = document.getElementById("formulario-template").content.cloneNode(true);
+            var formulario = plantillaFormulario.querySelector("form");
+
+            //En el campo descripción del formulario,"=" introduce la descripción del gasto que estoy editando
+            formulario.elements.descripcion.value = this.gasto.descripcion;
+            formulario.elements.valor.value = this.gasto.valor;
+            formulario.elements.fecha.value = new Date(this.gasto.fecha).toISOString().slice(0, 10);
+            formulario.elements.etiquetas.value = this.gasto.etiquetas.join(",");
+
+            //manejadorEditarForm.gasto: guarda el gasto que tiene que modificar.
+            let manejadorSubmit = new GuardarEdicionGastoHandle();
+            manejadorSubmit.gasto = this.gasto;
+
+            //manejadorBotonCancelar.formulario: guarda el formulario que tiene que eliminar.
+             let manejadorBotonCancelar =  new CancelarEdicionGastoHandle();
+             manejadorBotonCancelar.formulario = formulario;
+             manejadorBotonCancelar.botonEditar = this.botonEditar;
     
+            
 
+            formulario.addEventListener("submit", manejadorSubmit);
+
+            let botonCancelar = formulario.querySelector("button.cancelar");
+            botonCancelar.addEventListener("click", manejadorBotonCancelar);
+
+            this.divGasto.appendChild(plantillaFormulario);
+          
+        }
+    }
+
+      
+
+    //Rellenas el formulario y pulsas «Enviar».
+    //Esta función responde al evento submit, cuando pulsas «Enviar».
+    function GuardarEdicionGastoHandle(){
+
+        this.handleEvent = function(event){
+
+        event.preventDefault();
+
+        let descripcion = event.currentTarget.elements.descripcion.value;
+        let valor = Number(event.currentTarget.elements.valor.value);
+        let fecha = event.currentTarget.elements.fecha.value;
+        let etiquetas = event.currentTarget.elements.etiquetas.value.split(",");
+
+        // Actualizar los datos del gasto existente
+        this.gasto.actualizarDescripcion(descripcion);
+        this.gasto.actualizarValor(valor);
+        this.gasto.actualizarFecha(fecha);
+
+        // Sustituir las etiquetas anteriores por las nuevas
+        this.gasto.borrarEtiquetas(...this.gasto.etiquetas);
+        this.gasto.anyadirEtiquetas(...etiquetas);
+
+        // Actualizar la página
+        repintar();
+    };
+}
+
+//BOTON CANCELAR DE EDITAR FORMULARIO
+function CancelarEdicionGastoHandle(){
+
+        this.handleEvent = function(){
+
+            this.formulario.remove();
+            this.botonEditar.disabled = false;
+          
+        }
+}
 
     function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo){
 
@@ -310,6 +394,8 @@ function nuevoGastoWebFormulario(){
     
 document.getElementById("controlesprincipales").appendChild(plantillaFormulario);
 }
+
+
  function CancelarFormHandle (){
 
             this.handleEvent = function(event){
@@ -334,6 +420,7 @@ export{
     actualizarPresupuestoWeb,
     nuevoGastoWeb,
     EditarHandle,
-    nuevoGastoWebFormulario
+    nuevoGastoWebFormulario,
+
 
 };
