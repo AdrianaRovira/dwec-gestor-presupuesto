@@ -1,4 +1,5 @@
 
+import { createElement } from "react";
 import * as gesPres from "./gestionPresupuesto.js";
 
 function mostrarDatoEnId(idElemento, valor){
@@ -184,6 +185,17 @@ function mostrarGastoWeb(idElemento, gasto){
             divBotones.appendChild(botonBorrar);
 
        botonBorrar.addEventListener("click", manejadorBorrar);
+
+       let manejadorEditarForm = new EditarFormHandle();
+       manejadorEditarForm.gasto = gasto;
+
+            let botonEditForm = document.createElement("button");
+            botonEditForm.className = "gasto-editar-formulario";
+            botonEditForm.type = "button";
+            botonEditForm.textContent = "Editar (formulario)";
+            divBotones.appendChild(botonEditForm);
+        
+        botonEditForm.addEventListener("click", manejadorEditarForm);
 
      document.getElementById(idElemento).appendChild(divGasto)
      
